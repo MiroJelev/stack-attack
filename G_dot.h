@@ -1,6 +1,6 @@
 #pragma once
 
-#include "G_game_object.h";
+#include "G_game_object.h"
 
 class G_dot : public G_game_object {
 public:

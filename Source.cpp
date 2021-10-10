@@ -2,8 +2,8 @@
 #include <vector>
 #include <time.h>
 #include <sstream>
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "G_window.h"
 #include "G_renderer_win.h"
 #include "init_exception.h"

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "G_window.h"
 #include "init_exception.h"
 
@@ -11,7 +11,7 @@ G_window::G_window(std::string win_name, int n_width, int n_height): m_w(n_width
 	m_window = SDL_CreateWindow(win_name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 								m_w, m_h, SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
 	if (m_window == NULL)
-		throw std::exception("Window couldn't be created!");
+		throw std::exception();//"Window couldn't be created!");
 	
 }
 G_window::~G_window() {

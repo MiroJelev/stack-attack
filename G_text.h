@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "SDL_ttf.h"
+#include <SDL2/SDL_ttf.h>
 #include "G_texture.h"
 #include "G_game_object.h"
 #include "init_exception.h"
