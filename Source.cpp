@@ -60,22 +60,27 @@ bool Game_over(G_renderer_win& rend_win, SDL_Event& e) {
 int main(int argc, char* args[]) {
 		try {
 			srand(time(NULL));
-			if (SDL_Init(SDL_INIT_VIDEO) < 0)
-				throw init_exception("SDL_INIT_Video failed!");
-
-			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-			{
-				throw sound_init_exception("Failed to load beat music! SDL_mixer Error:");
+			if (SDL_Init(SDL_INIT_VIDEO) < 0){
+				printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
+				throw init_exception("SDL_INIT_Video or SDL_INIT_AUDIO failed!");
+				
 			}
+	/*		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+			{
+//MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024
+//44100, MIX_DEFAULT_FORMAT, 2, 2048
+				printf("Mix_OpenAudio error: %s\n", Mix_GetError());
+				throw sound_init_exception("Failed to load beat music! SDL_mixer Error:");
+			}*/
 			if (TTF_Init() == -1) {
 				std::cerr << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError();
 			}
 			bool game_end = false;
 			while (!game_end) {
 
-				G_sound background_music{ "sound/The Crystal Method - Born Too Slow.mp3" };
+				//G_sound background_music{ "sound/The Crystal Method - Born Too Slow.wav" };
 
-				background_music.play_sound();
+				//background_music.play_sound();
 
 				G_renderer_win rend_win{ "Test", 1280, 720 };
 				G_collisions collisions{};
@@ -353,12 +358,17 @@ int main(int argc, char* args[]) {
 			close();
 			return 1;
 		}
-		catch (std::exception& e) {
-			std::cerr << "Unknown error! Error!" << e.what();
+		catch (sound_init_exception& e) {
+			std::cerr << e.get_message() << "\nError: " << e.what() << "\n";
 			close();
 			return 2;
 		}
-
+		catch (std::exception& e) {
+			std::cerr << "Unknown error! Error!" << e.what();
+			close();
+			return 3;
+		}
+		
 
 		close();
 	return 0;
